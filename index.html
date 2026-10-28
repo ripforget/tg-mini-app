@@ -9,14 +9,12 @@
   <style>
     :root {
       --bg: #000000;
-      --bg-elev: #101010;
       --surface: #151515;
       --surface-2: #1d1d1d;
       --text-primary: #ffffff;
       --text-secondary: #b3b3b3;
       --text-tertiary: #6f6f6f;
       --border: rgba(255, 255, 255, 0.06);
-      --border-strong: rgba(255, 255, 255, 0.1);
       --accent: #1db954;
       --accent-contrast: #000000;
       --r-sm: 8px;
@@ -26,40 +24,19 @@
       color-scheme: dark;
     }
 
-    :root[data-accent="green"] {
-      --accent: #1db954;
-    }
-
-    :root[data-accent="blue"] {
-      --accent: #3b82f6;
-    }
-
-    :root[data-accent="violet"] {
-      --accent: #8b5cf6;
-    }
-
-    :root[data-accent="orange"] {
-      --accent: #f59e0b;
-    }
-
-    :root[data-accent="red"] {
-      --accent: #ef4444;
-    }
-
-    :root[data-accent="cyan"] {
-      --accent: #22d3ee;
-    }
-
-    :root[data-accent="pink"] {
-      --accent: #ec4899;
-    }
+    :root[data-accent="green"] { --accent: #1db954; }
+    :root[data-accent="blue"] { --accent: #3b82f6; }
+    :root[data-accent="violet"] { --accent: #8b5cf6; }
+    :root[data-accent="orange"] { --accent: #f59e0b; }
+    :root[data-accent="red"] { --accent: #ef4444; }
+    :root[data-accent="cyan"] { --accent: #22d3ee; }
+    :root[data-accent="pink"] { --accent: #ec4899; }
 
     * {
       box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
       touch-action: manipulation;
     }
 
@@ -70,17 +47,14 @@
       line-height: 1.4;
     }
 
-    button,
-    input {
+    button, input {
       font: inherit;
       color: inherit;
-    }
-
-    button {
       border: none;
       background: none;
-      cursor: pointer;
     }
+
+    button { cursor: pointer; }
 
     .app {
       display: flex;
@@ -88,63 +62,70 @@
       height: 100dvh;
       max-width: 430px;
       margin: 0 auto;
-      position: relative;
       overflow: hidden;
+      position: relative;
     }
 
-    .app-header {
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: calc(env(safe-area-inset-top, 0) + 12px) 16px 10px 16px;
-      gap: 12px;
+      padding: calc(env(safe-area-inset-top, 0) + 12px) 16px 8px 16px;
     }
 
-    .app-title {
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .brand-top {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .brand-name {
       font-size: 18px;
       font-weight: 600;
       letter-spacing: -0.01em;
     }
 
+    .brand-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      color: var(--accent);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 4px;
+    }
+
     .icon-btn {
       width: 34px;
       height: 34px;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
       border-radius: var(--r-pill);
       color: var(--text-secondary);
     }
 
-    .icon-btn:active {
-      opacity: 0.7;
-    }
+    .icon-btn.active { color: var(--accent); }
 
-    .app-main {
+    main {
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 4px 16px 110px 16px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
+      padding: 0 16px 110px 16px;
     }
 
-    .app-main::-webkit-scrollbar {
-      display: none;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .section-title {
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
+    main::-webkit-scrollbar { display: none; }
 
     .search {
       display: flex;
@@ -156,26 +137,44 @@
       padding: 9px 12px;
     }
 
+    .search:focus-within {
+      border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    }
+
     .search svg {
       width: 18px;
       height: 18px;
       color: var(--text-tertiary);
-      flex-shrink: 0;
     }
+
+    .search:focus-within svg { color: var(--accent); }
 
     .search input {
       flex: 1;
-      border: none;
       background: transparent;
-      font-size: 14px;
       outline: none;
+      font-size: 14px;
     }
 
-    .search input::placeholder {
-      color: var(--text-tertiary);
+    .search input::placeholder { color: var(--text-tertiary); }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .track-list {
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .status {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .list {
       display: flex;
       flex-direction: column;
       gap: 2px;
@@ -191,37 +190,42 @@
       text-align: left;
     }
 
-    .track:active {
-      background: var(--surface);
+    .track:active { background: var(--surface); }
+
+    .track.active {
+      background: radial-gradient(120% 120% at 0% 50%, color-mix(in srgb, var(--accent) 14%, transparent), transparent);
     }
 
-    .thumb {
+    .track.active .track-name { color: var(--accent); }
+
+    .cover {
       width: 48px;
       height: 48px;
       border-radius: var(--r-sm);
       background: var(--surface-2);
-      display: grid;
-      place-items: center;
-      color: var(--text-primary);
-      font-size: 18px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-tertiary);
     }
 
-    .track-meta {
+    .meta {
       min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
 
-    .track-meta strong {
+    .track-name {
       font-size: 14px;
-      font-weight: 500;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .track-meta span {
+    .track-artist {
       font-size: 13px;
       color: var(--text-secondary);
       white-space: nowrap;
@@ -229,23 +233,21 @@
       text-overflow: ellipsis;
     }
 
-    .duration {
+    .time {
       font-size: 13px;
       color: var(--text-tertiary);
     }
 
-    .heart {
+    .fav {
       width: 34px;
       height: 34px;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
       color: var(--text-tertiary);
     }
 
-    .heart.saved {
-      color: var(--accent);
-    }
+    .fav.active { color: var(--accent); }
 
     .player {
       position: absolute;
@@ -256,19 +258,22 @@
       grid-template-columns: 40px 1fr auto;
       align-items: center;
       gap: 10px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 16%, var(--surface)) 0%, var(--surface) 100%);
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
       border-radius: var(--r-lg);
       padding: 6px 10px 6px 6px;
     }
 
-    .player-thumb {
+    .player-cover {
       width: 40px;
       height: 40px;
       border-radius: var(--r-sm);
       background: var(--surface-2);
-      display: grid;
-      place-items: center;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .player-meta {
@@ -278,7 +283,7 @@
       gap: 1px;
     }
 
-    .player-title {
+    .player-name {
       font-size: 13px;
       white-space: nowrap;
       overflow: hidden;
@@ -293,95 +298,66 @@
       text-overflow: ellipsis;
     }
 
-    .player-toggle {
+    .play-btn {
       width: 34px;
       height: 34px;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
       border-radius: var(--r-pill);
+      background: var(--accent);
+      color: var(--accent-contrast);
     }
 
-    .player-toggle:active {
-      opacity: 0.7;
-    }
-
-    .settings-overlay {
+    .sheet {
       position: absolute;
       inset: 0;
-      display: flex;
+      display: none;
       align-items: flex-end;
       justify-content: center;
       background: rgba(0, 0, 0, 0.6);
       z-index: 10;
     }
 
-    .settings-overlay.hidden {
-      display: none;
-    }
+    .sheet.show { display: flex; }
 
-    .settings-sheet {
+    .sheet-inner {
       width: 100%;
       max-width: 430px;
-      background: var(--bg-elev);
+      background: #101010;
       border-radius: 16px 16px 0 0;
       border: 1px solid var(--border);
       border-bottom: none;
+      padding: 14px 16px calc(env(safe-area-inset-bottom, 0) + 14px) 16px;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      padding-bottom: calc(env(safe-area-inset-bottom, 0) + 12px);
+      gap: 14px;
     }
 
-    .settings-header {
+    .sheet-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 16px 10px 16px;
     }
 
-    .settings-title {
-      font-size: 15px;
+    .sheet-title {
       font-weight: 600;
     }
 
-    .settings-content {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      padding: 6px 16px 10px 16px;
-    }
-
-    .settings-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .settings-group-title {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .settings-group-subtitle {
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
-
-    .color-grid {
+    .colors {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 10px;
     }
 
-    .color-swatch {
+    .swatch {
       width: 100%;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 1/1;
       border-radius: var(--r-pill);
       position: relative;
     }
 
-    .color-swatch.active::after {
+    .swatch.active::after {
       content: "";
       position: absolute;
       inset: 4px;
@@ -389,337 +365,300 @@
       border: 2px solid rgba(0, 0, 0, 0.8);
     }
 
-    .color-swatch[data-color="green"] {
-      background: #1db954;
-    }
+    .swatch.g { background: #1db954; }
+    .swatch.b { background: #3b82f6; }
+    .swatch.v { background: #8b5cf6; }
+    .swatch.o { background: #f59e0b; }
+    .swatch.r { background: #ef4444; }
+    .swatch.c { background: #22d3ee; }
+    .swatch.p { background: #ec4899; }
 
-    .color-swatch[data-color="blue"] {
-      background: #3b82f6;
-    }
-
-    .color-swatch[data-color="violet"] {
-      background: #8b5cf6;
-    }
-
-    .color-swatch[data-color="orange"] {
-      background: #f59e0b;
-    }
-
-    .color-swatch[data-color="red"] {
-      background: #ef4444;
-    }
-
-    .color-swatch[data-color="cyan"] {
-      background: #22d3ee;
-    }
-
-    .color-swatch[data-color="pink"] {
-      background: #ec4899;
-    }
-
-    .empty {
-      color: var(--text-secondary);
-      font-size: 13px;
-      text-align: center;
-      padding: 20px 0;
-    }
-
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
   </style>
 </head>
 
 <body>
   <div class="app">
-    <header class="app-header">
-      <div class="app-title">OpenMusic</div>
-      <button class="icon-btn" id="open-settings" aria-label="Настройки">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-          stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"></circle>
-          <path
-            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.26 1.3.73 1.77.47.47 1.11.73 1.77.73H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z">
-          </path>
-        </svg>
-      </button>
-    </header>
-
-    <main class="app-main">
-      <label class="search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-          stroke-linejoin="round">
-          <circle cx="11" cy="11" r="7"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <input id="search" placeholder="Поиск трека или исполнителя" autocomplete="off" spellcheck="false">
-      </label>
-
-      <div class="section-header">
-        <div class="section-title">Треки</div>
-        <button class="icon-btn" id="showSaved" aria-label="Избранное">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path
-              d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z">
-            </path>
+    <header>
+      <div class="brand">
+        <div class="brand-top">
+          <div class="brand-name">OpenMusic</div>
+          <div class="brand-sub">ОНЛАЙН-КАТАЛОГ</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="btn-fav" aria-label="Избранное">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z"></path>
+          </svg>
+        </button>
+        <button class="icon-btn" id="btn-settings" aria-label="Настройки">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.26 1.3.73 1.77.47.47 1.11.73 1.77.73H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
           </svg>
         </button>
       </div>
+    </header>
 
-      <div class="track-list" id="tracks"></div>
-      <div class="empty hidden" id="empty">Ничего не найдено</div>
+    <main>
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input id="q" placeholder="Поиск трека или исполнителя" autocomplete="off">
+      </label>
+
+      <section id="home">
+        <div class="section-head">
+          <div class="section-title">Топ чарт</div>
+          <div class="status" id="status">Загружаем каталог...</div>
+        </div>
+        <div class="list" id="chart"></div>
+      </section>
+
+      <section id="searchsec" class="hidden">
+        <div class="section-head">
+          <div class="section-title">Результаты</div>
+        </div>
+        <div class="list" id="results"></div>
+      </section>
+
+      <section id="favsec" class="hidden">
+        <div class="section-head">
+          <div class="section-title">Избранное</div>
+        </div>
+        <div class="list" id="favs"></div>
+      </section>
     </main>
 
     <div class="player">
-      <div class="player-thumb" id="currentThumb">♫</div>
+      <div class="player-cover" id="pcover">♫</div>
       <div class="player-meta">
-        <div class="player-title" id="currentTitle">Выбери трек</div>
-        <div class="player-artist" id="currentArtist">OpenMusic</div>
+        <div class="player-name" id="pname">Выбери трек</div>
+        <div class="player-artist" id="partist">OpenMusic</div>
       </div>
-      <button class="player-toggle" id="toggle">
-        <svg id="iconPlay" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <button class="play-btn" id="pp">
+        <svg id="pplay" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <polygon points="5 3 19 12 5 21 5 3"></polygon>
         </svg>
-        <svg id="iconPause" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <svg id="ppause" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <rect x="6" y="4" width="4" height="16"></rect>
           <rect x="14" y="4" width="4" height="16"></rect>
         </svg>
       </button>
     </div>
 
-    <div class="settings-overlay hidden" id="settings-overlay">
-      <div class="settings-sheet">
-        <header class="settings-header">
-          <span class="settings-title">Настройки</span>
-          <button class="icon-btn" id="settings-close" aria-label="Закрыть">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round">
+    <div class="sheet" id="sheet">
+      <div class="sheet-inner">
+        <div class="sheet-head">
+          <div class="sheet-title">Настройки</div>
+          <button class="icon-btn" id="sclose">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           </button>
-        </header>
-        <div class="settings-content">
-          <div class="settings-group">
-            <div class="settings-group-title">Цвет оформления</div>
-            <p class="settings-group-subtitle">Меняет только акцентные элементы</p>
-            <div class="color-grid" id="color-grid"></div>
-          </div>
+        </div>
+        <div class="sheet-title" style="font-size:14px;">Цвет оформления</div>
+        <div class="colors">
+          <button class="swatch g" data-c="green"></button>
+          <button class="swatch b" data-c="blue"></button>
+          <button class="swatch v" data-c="violet"></button>
+          <button class="swatch o" data-c="orange"></button>
+          <button class="swatch r" data-c="red"></button>
+          <button class="swatch c" data-c="cyan"></button>
+          <button class="swatch p" data-c="pink"></button>
         </div>
       </div>
     </div>
 
-    <audio id="audio" preload="none"></audio>
+    <template id="t">
+      <button class="track">
+        <div class="cover">♫</div>
+        <div class="meta">
+          <div class="track-name"></div>
+          <div class="track-artist"></div>
+        </div>
+        <div class="time"></div>
+        <button class="fav">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z"></path>
+          </svg>
+        </button>
+      </button>
+    </template>
+
+    <audio id="aud"></audio>
   </div>
 
   <script>
     const tg = window.Telegram?.WebApp;
-    if (tg) {
-      try {
-        tg.ready();
-        tg.expand();
-        tg.setHeaderColor("#000000");
-        tg.setBackgroundColor("#000000");
-      } catch (e) { }
-    }
+    if(tg){ try{ tg.ready(); tg.expand(); tg.setHeaderColor("#000000"); tg.setBackgroundColor("#000000"); }catch(e){} }
 
-    const STORAGE_KEY = "openmusic-accent";
     const root = document.documentElement;
-    const openBtn = document.getElementById("open-settings");
-    const overlay = document.getElementById("settings-overlay");
-    const closeBtn = document.getElementById("settings-close");
-    const grid = document.getElementById("color-grid");
+    const btnSet = document.getElementById("btn-settings");
+    const btnFav = document.getElementById("btn-fav");
+    const sheet = document.getElementById("sheet");
+    const sclose = document.getElementById("sclose");
+    const sw = document.querySelectorAll(".swatch");
+    const q = document.getElementById("q");
+    const home = document.getElementById("home");
+    const searchsec = document.getElementById("searchsec");
+    const favsec = document.getElementById("favsec");
+    const chart = document.getElementById("chart");
+    const results = document.getElementById("results");
+    const favs = document.getElementById("favs");
+    const status = document.getElementById("status");
+    const pcover = document.getElementById("pcover");
+    const pname = document.getElementById("pname");
+    const partist = document.getElementById("partist");
+    const pp = document.getElementById("pp");
+    const pplay = document.getElementById("pplay");
+    const ppause = document.getElementById("ppause");
+    const aud = document.getElementById("aud");
+    const tpl = document.getElementById("t");
 
-    const COLORS = [
-      { id: "green", label: "Зелёный" },
-      { id: "blue", label: "Синий" },
-      { id: "violet", label: "Фиолетовый" },
-      { id: "orange", label: "Оранжевый" },
-      { id: "red", label: "Красный" },
-      { id: "cyan", label: "Циановый" },
-      { id: "pink", label: "Розовый" }
-    ];
+    const AKEY = "om-accent";
+    const FKEY = "om-fav";
+    let fav = new Set(JSON.parse(localStorage.getItem(FKEY)||"[]"));
+    let list = [];
+    let current = null;
 
-    function applyAccent(id) {
-      root.setAttribute("data-accent", id);
-      localStorage.setItem(STORAGE_KEY, id);
-      updateActive(id);
+    function setAccent(c){
+      root.setAttribute("data-accent", c);
+      localStorage.setItem(AKEY,c);
+      sw.forEach(x=>x.classList.toggle("active", x.dataset.c===c));
+    }
+    setAccent(localStorage.getItem(AKEY)||"green");
+    sw.forEach(x=>x.onclick=()=>setAccent(x.dataset.c));
+    btnSet.onclick=()=>sheet.classList.add("show");
+    sclose.onclick=()=>sheet.classList.remove("show");
+    sheet.onclick=e=>{ if(e.target===sheet) sheet.classList.remove("show"); }
+
+    function fmt(s){
+      if(!s||isNaN(s)) return "";
+      s=Math.floor(s);
+      const m=Math.floor(s/60), sec=s%60;
+      return m+":"+(sec<10?"0"+sec:sec);
     }
 
-    function updateActive(id) {
-      grid.querySelectorAll(".color-swatch").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.color === id);
-      });
-    }
+    function mk(track, cont){
+      const n=tpl.content.cloneNode(true);
+      const row=n.querySelector(".track");
+      const cov=n.querySelector(".cover");
+      const name=n.querySelector(".track-name");
+      const art=n.querySelector(".track-artist");
+      const tm=n.querySelector(".time");
+      const fv=n.querySelector(".fav");
+      const fsvg=fv.querySelector("svg");
 
-    function initSettings() {
-      const saved = localStorage.getItem(STORAGE_KEY) || "green";
-      root.setAttribute("data-accent", saved);
-      grid.innerHTML = "";
-      COLORS.forEach((color) => {
-        const btn = document.createElement("button");
-        btn.className = "color-swatch";
-        btn.dataset.color = color.id;
-        btn.setAttribute("aria-label", color.label);
-        btn.addEventListener("click", () => applyAccent(color.id));
-        grid.appendChild(btn);
-      });
-      updateActive(saved);
-      openBtn.addEventListener("click", () => overlay.classList.remove("hidden"));
-      closeBtn.addEventListener("click", () => overlay.classList.add("hidden"));
-      overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) overlay.classList.add("hidden");
-      });
-    }
+      if(track.pic) cov.style.backgroundImage="url("+track.pic+")"; else cov.textContent="♫";
+      name.textContent=track.title;
+      art.textContent=track.artist;
+      tm.textContent=fmt(track.dur);
 
-    const tracksData = [
-      { id: 1, title: "Blue Horizon", artist: "Open Waves", duration: "3:24", url: "https://archive.org/download/MLKDream/MLKDream_64kb.mp3" },
-      { id: 2, title: "Midnight City Lights", artist: "The Ambient Project", duration: "4:02", url: "https://archive.org/download/testmp3testfile/mpthreetest.mp3" },
-      { id: 3, title: "Ocean in Motion", artist: "Free Music Archive", duration: "2:48", url: "https://archive.org/download/MLKDream/MLKDream_64kb.mp3" },
-      { id: 4, title: "Soft Focus", artist: "Open Waves", duration: "3:51", url: "https://archive.org/download/testmp3testfile/mpthreetest.mp3" },
-      { id: 5, title: "Afterglow", artist: "Indie Sound Lab", duration: "3:17", url: "https://archive.org/download/MLKDream/MLKDream_64kb.mp3" },
-      { id: 6, title: "Pulse Runner", artist: "Free Music Archive", duration: "2:59", url: "https://archive.org/download/testmp3testfile/mpthreetest.mp3" },
-      { id: 7, title: "Slow Motion", artist: "Open Waves", duration: "3:32", url: "https://archive.org/download/MLKDream/MLKDream_64kb.mp3" },
-      { id: 8, title: "Neon Lines", artist: "Indie Sound Lab", duration: "3:06", url: "https://archive.org/download/testmp3testfile/mpthreetest.mp3" }
-    ];
-
-    const audio = document.getElementById("audio");
-    const tracksEl = document.getElementById("tracks");
-    const search = document.getElementById("search");
-    const showSaved = document.getElementById("showSaved");
-    const currentTitle = document.getElementById("currentTitle");
-    const currentArtist = document.getElementById("currentArtist");
-    const currentThumb = document.getElementById("currentThumb");
-    const toggle = document.getElementById("toggle");
-    const iconPlay = document.getElementById("iconPlay");
-    const iconPause = document.getElementById("iconPause");
-    const empty = document.getElementById("empty");
-
-    const SAVED_KEY = "openmusic-saved";
-    let saved = new Set(JSON.parse(localStorage.getItem(SAVED_KEY) || "[]"));
-    let currentId = null;
-    let savedOnly = false;
-    let searchTerm = "";
-
-    function saveSaved() {
-      localStorage.setItem(SAVED_KEY, JSON.stringify(Array.from(saved)));
-    }
-
-    function filtered() {
-      return tracksData.filter(t => {
-        const matchSearch = `${t.title} ${t.artist}`.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchSaved = savedOnly ? saved.has(t.id) : true;
-        return matchSearch && matchSaved;
-      });
-    }
-
-    function render() {
-      const list = filtered();
-      tracksEl.innerHTML = "";
-      if (!list.length) {
-        empty.classList.remove("hidden");
-      } else {
-        empty.classList.add("hidden");
-        list.forEach(t => {
-          const row = document.createElement("button");
-          row.className = "track";
-          row.innerHTML = `
-            <div class="thumb">♫</div>
-            <div class="track-meta">
-              <strong>${t.title}</strong>
-              <span>${t.artist}</span>
-            </div>
-            <div class="duration">${t.duration}</div>
-            <button class="heart ${saved.has(t.id) ? "saved" : ""}" data-save="${t.id}">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="${saved.has(t.id) ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z"></path>
-              </svg>
-            </button>
-          `;
-          row.addEventListener("click", (e) => {
-            if (e.target.closest("[data-save]")) return;
-            playTrack(t.id);
-          });
-          const saveBtn = row.querySelector("[data-save]");
-          saveBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (saved.has(t.id)) saved.delete(t.id); else saved.add(t.id);
-            saveSaved();
-            render();
-            if (currentId === t.id) {
-              const h = document.querySelector(".heart.saved, .heart:not(.saved)");
-            }
-          });
-          tracksEl.appendChild(row);
-        });
+      if(fav.has(track.id)){ fv.classList.add("active"); fsvg.setAttribute("fill","currentColor"); }
+      fv.onclick=e=>{
+        e.stopPropagation();
+        if(fav.has(track.id)){ fav.delete(track.id); fv.classList.remove("active"); fsvg.setAttribute("fill","none"); }
+        else { fav.add(track.id); fv.classList.add("active"); fsvg.setAttribute("fill","currentColor"); }
+        localStorage.setItem(FKEY, JSON.stringify([...fav]));
+        if(favsec.classList.contains("hidden")===false) renderFav();
       }
-      showSaved.style.color = savedOnly ? "var(--accent)" : "var(--text-secondary)";
+
+      row.onclick=()=>play(track,row);
+      cont.appendChild(row);
+      return row;
     }
 
-    function playTrack(id) {
-      const t = tracksData.find(x => x.id === id);
-      if (!t) return;
-      currentId = t.id;
-      currentTitle.textContent = t.title;
-      currentArtist.textContent = t.artist;
-      if (audio.dataset.track !== String(t.id)) {
-        audio.src = t.url;
-        audio.dataset.track = String(t.id);
-        audio.load();
-      }
-      audio.play().then(() => {
-        iconPlay.classList.add("hidden");
-        iconPause.classList.remove("hidden");
-      }).catch(() => {
-        iconPlay.classList.remove("hidden");
-        iconPause.classList.add("hidden");
+    async function load(){
+      try {
+        const url = "https://corsproxy.io/?" + encodeURIComponent("https://api.deezer.com/chart/0/tracks?limit=30");
+        const r = await fetch(url);
+        const j = await r.json();
+        if(j.data){
+          list = j.data.map(t=>({
+            id: "dz_"+t.id,
+            title: t.title,
+            artist: t.artist.name,
+            pic: t.album.cover_medium,
+            dur: t.duration,
+            src: t.preview
+          }));
+          chart.innerHTML="";
+          list.forEach(x=>mk(x,chart));
+          status.textContent = "Онлайн-каталог загружен";
+          return;
+        }
+      }catch(e){}
+      status.textContent = "Не удалось загрузить каталог";
+    }
+
+    function play(track,row){
+      document.querySelectorAll(".track").forEach(x=>x.classList.remove("active"));
+      row.classList.add("active");
+      current=track;
+      pname.textContent=track.title;
+      partist.textContent=track.artist;
+      if(track.pic) pcover.style.backgroundImage="url("+track.pic+")"; else { pcover.style.backgroundImage="none"; pcover.textContent="♫"; }
+      aud.src=track.src;
+      aud.play().then(()=>{
+        pplay.classList.add("hidden"); ppause.classList.remove("hidden");
+      }).catch(()=>{
+        pplay.classList.remove("hidden"); ppause.classList.add("hidden");
       });
-      render();
     }
 
-    toggle.addEventListener("click", () => {
-      if (!currentId) {
-        playTrack(tracksData[0].id);
+    pp.onclick=()=>{
+      if(!current && list.length){ const r=chart.querySelector(".track"); play(list[0],r); return; }
+      if(aud.paused){ aud.play(); pplay.classList.add("hidden"); ppause.classList.remove("hidden"); }
+      else { aud.pause(); pplay.classList.remove("hidden"); ppause.classList.add("hidden"); }
+    }
+    aud.onplay=()=>{pplay.classList.add("hidden"); ppause.classList.remove("hidden");}
+    aud.onpause=()=>{pplay.classList.remove("hidden"); ppause.classList.add("hidden");}
+    aud.onended=()=>{pplay.classList.remove("hidden"); ppause.classList.add("hidden");}
+
+    btnFav.onclick=()=>{
+      if(favsec.classList.contains("hidden")){
+        home.classList.add("hidden"); searchsec.classList.add("hidden"); favsec.classList.remove("hidden");
+        btnFav.classList.add("active"); btnSet.classList.remove("active");
+        renderFav();
+      }else{
+        home.classList.remove("hidden"); searchsec.classList.add("hidden"); favsec.classList.add("hidden");
+        btnFav.classList.remove("active");
+      }
+    }
+
+    function renderFav(){
+      favs.innerHTML="";
+      const all=[...list];
+      fav.forEach(id=>{
+        const t=all.find(x=>x.id===id);
+        if(t) mk(t,favs);
+      });
+    }
+
+    let tmr=null;
+    q.oninput=()=>{
+      clearTimeout(tmr);
+      const v=q.value.trim().toLowerCase();
+      if(!v){
+        home.classList.remove("hidden"); searchsec.classList.add("hidden"); favsec.classList.add("hidden");
+        btnFav.classList.remove("active");
         return;
       }
-      if (audio.paused) {
-        audio.play().then(() => {
-          iconPlay.classList.add("hidden");
-          iconPause.classList.remove("hidden");
-        });
-      } else {
-        audio.pause();
-        iconPlay.classList.remove("hidden");
-        iconPause.classList.add("hidden");
-      }
-    });
+      home.classList.add("hidden"); favsec.classList.add("hidden"); searchsec.classList.remove("hidden");
+      btnFav.classList.remove("active");
+      tmr=setTimeout(()=>{
+        results.innerHTML="";
+        const res=list.filter(x=>x.title.toLowerCase().includes(v)||x.artist.toLowerCase().includes(v));
+        res.forEach(x=>mk(x,results));
+      },200);
+    }
 
-    audio.addEventListener("play", () => {
-      iconPlay.classList.add("hidden");
-      iconPause.classList.remove("hidden");
-    });
-    audio.addEventListener("pause", () => {
-      iconPlay.classList.remove("hidden");
-      iconPause.classList.add("hidden");
-    });
-    audio.addEventListener("ended", () => {
-      iconPlay.classList.remove("hidden");
-      iconPause.classList.add("hidden");
-    });
-
-    search.addEventListener("input", (e) => {
-      searchTerm = e.target.value;
-      render();
-    });
-
-    showSaved.addEventListener("click", () => {
-      savedOnly = !savedOnly;
-      render();
-    });
-
-    initSettings();
-    render();
+    load();
   </script>
 </body>
 
